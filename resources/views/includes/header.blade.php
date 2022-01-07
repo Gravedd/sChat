@@ -1,4 +1,3 @@
-@section('header')
 <header>
     <div class="logo">
         <a href="">sChat</a>
@@ -9,4 +8,3 @@
         <a href=""><div class="button">Кнопка 2</div></a>
     </div>
 </header>
-@endsection
