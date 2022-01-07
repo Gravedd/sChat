@@ -1,0 +1,238 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+}
+@font-face {
+    font-family: OpenSans;
+    src: url('../fonts/OpenSans.ttf');
+}
+@font-face {
+    font-family: LightFont;
+    src: url('../fonts/Montserrat-Light.ttf');
+}
+
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 14pt;
+    padding: 0 400px;
+    font-family: OpenSans;
+}
+a {
+    color: var(--baselink-color);
+    text-decoration: none;
+}
+header {
+    display: flex;
+    height: 100px;
+}
+header .logo {
+    height: 100px;
+    font-size: 48pt;
+    line-height: 100px;
+    width: 30%;
+    text-align: center;
+    transition: 0.5s;
+    text-shadow: 0 2px 5px var(--shadow-color);
+}
+header .nav {
+    height: 100px;
+}
+a .button {
+    background-color: var(--cont-color);
+    color: var(--inverse-color);
+    font-family: LightFont;
+    padding: 10px;
+    border-radius: 5px;
+    transition: 0.3s;
+    box-shadow: 0 0 5px 0 var(--shadow-color);
+}
+a .button:hover, .logo:hover {
+    transform: scale(1.093);
+    transition: 0.75s;
+}
+header .nav {
+    width: 70%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+footer {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+footer .button {
+    margin-right: 30px;
+}
+
+main {
+    width: 100%;
+    min-height: 250px;
+    background-color: var(--main-color);
+    margin-bottom: 16px;
+    border-radius: 10px;
+    box-shadow: 0 0 5px 0 var(--shadow-color);
+    padding: 8px;
+}
+.flexrow {
+    display: flex;
+    margin-bottom: 8px;
+}
+h1 {
+    font-family: LightFont;
+    font-size: 24pt;
+    letter-spacing: 1px;
+}
+h2, h3, h4, h5, h6 {
+    font-family: LightFont;
+    letter-spacing: 1px;
+}
+.flexrow h1 {
+    margin-right: 16px;
+    width: 60%;
+}
+.flexrow input {
+    width: 40%;
+    border: 2px solid var(--cont-color);
+    outline: none;
+    border-radius: 5px;
+}
+.chatwrapper {
+    width: 100%;
+    height:500px;
+    border-radius: 10px;
+    border: 2px solid var(--bg-color);
+    background-color: var(--inverse-color);
+    display: flex;
+    flex-direction: column;
+
+}
+.messages {
+    width: 100%;
+    padding: 8px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    height: 450px;
+}
+.usermess {
+    width: 60%;
+    padding: 8px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    transition: 0.25s;
+}
+.usermess:hover{
+    transform: scale(1.015);
+}
+.received {
+    background-color: var(--main-color);
+}
+.sent {
+    margin-left: auto;
+    background-color: var(--main-color);
+    filter: brightness(90%);
+}
+.messinput {
+    height: 50px;
+    background-color: #b1b1b1;
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+}
+.messinput input {
+    border: none;
+
+}
+.messinput input:focus {
+    outline: none;
+    filter: brightness(93%);
+}
+.messinput input[type="text"] {
+    height: 40px;
+    width: 90%;
+    border-radius: 10px 0 0 10px;
+}
+.messinput input[type="submit"] {
+    width: 10%;
+    height: 40px;
+    border-radius: 0 10px 10px 0;
+    font-size: 20pt;
+    background-color: var(--cont-color);
+    color: var(--inverse-color);
+}
+.searchform .inputwrapper {
+    display: flex;
+    border: 2px solid var(--cont-color);
+    border-radius: 10px;
+}
+.inputwrapper input {
+    height: 40px;
+    border-radius: 0;
+    border:none;
+}
+.inputwrapper input:focus {
+    outline: none;
+}
+.inputwrapper input[type="text"]{
+    width: 90%;
+    border-radius: 10px 0 0 10px;
+}
+.inputwrapper input[type="submit"] {
+    background-color: var(--cont-color);
+    width: 10%;
+    font-size: 12pt;
+    color: var(--inverse-color);
+    border-radius: 0 5px 5px 0;
+}
+.inputwrapper input[type="submit"]:hover {
+    filter: brightness(110%);
+    transition: 0.5s;
+}
+.searchitem {
+    display: flex;
+    flex-direction: column;
+    border-left: 2px solid var(--cont-color);
+    padding-left: 8px;
+    margin-bottom: 8px;
+    margin-left: 16px;
+}
+.searchitem .nick{
+    font-size: 12pt;
+    color: var(--text-color);
+}
+.offline {
+    color: var(--cont-color);
+    filter: brightness(80%);
+    font-size: 12pt;
+}
+.online {
+    color: var(--cont-color);
+    filter: brightness(110%);
+    font-size: 12pt;
+}
+.svgbuttona .button {
+    margin-right: 8px;
+}
+.anim {
+    width: 22%;
+    margin-left: auto;
+    background-color: var(--main-color);
+    filter: brightness(99%);
+    animation-name: loading;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+@keyframes loading {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.25;
+    }
+    100% {
+        opacity: 1;
+    }
+}
