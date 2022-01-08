@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UsersController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +26,6 @@ Route::get('/home', function () {
 Route::get('/chat', function () {
     return view('chat');
 });
-Route::get('/search', function () {
-    return view('search');
-});
-Route::get('/user', function () {
-    return view('user');
-});
+Route::get('search', [UsersController::class, 'search']);
+Route::get('/user/{userid}', [UsersController::class, 'profile']);
+

@@ -1,7 +1,7 @@
 <html lang="ru">
 <head>
     <title>sChat - secure chat</title>
-    <link rel="stylesheet" href="public/css/style.css">
+    <link rel="stylesheet" href="/public/css/style.css">
     <style>
         :root {
             --bg-color: #d7d7d7;
