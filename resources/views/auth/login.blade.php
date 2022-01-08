@@ -2,10 +2,12 @@
 
 @section('content')
     <main>
-        <form method="POST" action="{{ route('login') }}">
+        <form id="loginform" method="POST" action="{{ route('login') }}">
             @csrf
-            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+            <label>Ваш email</label>
+            <input id="email" type="email" class="@error('email')is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+            <label>Ваш пароль</label>
+            <input id="password" type="password" name="password" required autocomplete="current-password">
             @error('email')
             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -17,12 +19,9 @@
                                     </span>
             @enderror
             <input class="form-check-input" type="checkbox" name="remember" id="remember" checked="checked" style="display:none">
-            <button type="submit" class="btn btn-primary">{{ __('Login') }}</button>
+            <label>Не зарегистрированны?</label> <a href="register">Нажмите чтобы зарегистрироватся</a>
+            <input type="submit" class="btn btn-primary" value="Войти">
         </form>
     </main>
 @endsection
-{{--@if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif--}}
+
