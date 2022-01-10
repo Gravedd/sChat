@@ -23,9 +23,7 @@ Auth::routes();
 Route::get('/home', function () {
     return view('dialogues');
 });
-Route::get('/chat', function () {
-    return view('chat');
-});
+Route::get('/chat/{userid}', [\App\Http\Controllers\ChatController::class, 'chat']);
 Route::get('search', [UsersController::class, 'search']);
 Route::get('/user/{userid}', [UsersController::class, 'profile']);
 

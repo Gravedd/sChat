@@ -4,7 +4,7 @@
     <main>
         <form id="loginform" method="POST" action="{{ route('register') }}">
             @csrf
-            <label>Ваше никнейм</label>
+            <label>Ваше имя</label>
             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
             <label>Ваш email</label>
             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
