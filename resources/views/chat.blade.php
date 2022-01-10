@@ -7,7 +7,7 @@
         </div>
         <div class="chatwrapper">
             <div class="messages" id="messblock">
-                <div class="usermess received">сообщение</div>
+                {{--<div class="usermess received">сообщение</div>
                 <div class="usermess received">сообщение</div>
                 <div class="usermess received">сообщение</div>
                 <div class="usermess received">сообщение</div>
@@ -22,17 +22,18 @@
                 <div class="usermess received">сообщение</div>
                 <div class="usermess received">сообщение1</div>
                 <div class="usermess received">сообщение1</div>
-                <div class="usermess sent">сообщение1</div>
-                <div class="usermess anim">
+                <div class="usermess sent">сообщение1</div>--}}
+                {{--<div class="usermess anim">
                     Отправка сообщения...
-                </div>
+                </div>--}}
                 <br>
             </div>
             <div class="messinput">
                 <input type="text" placeholder=" ваше сообщение...">
+                <input id="userid" type="hidden" value="{{$id}}">
                 <input type="submit" value="&#8594;">
             </div>
-            <script src="public/js/chatscript.js"></script>
+            <script src="/public/js/chatscript.js"></script>
         </div>
     </main>
 @endsection

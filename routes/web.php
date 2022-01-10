@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
+use \App\Http\Controllers\ChatController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,8 @@ Auth::routes();
 Route::get('/home', function () {
     return view('dialogues');
 });
-Route::get('/chat/{userid}', [\App\Http\Controllers\ChatController::class, 'chat']);
+Route::get('/chat/{userid}', [ChatController::class, 'index']);
+Route::get('/chatapi', [ChatController::class, 'getJson']);
 Route::get('search', [UsersController::class, 'search']);
 Route::get('/user/{userid}', [UsersController::class, 'profile']);
 
