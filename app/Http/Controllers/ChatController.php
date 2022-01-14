@@ -33,4 +33,20 @@ class ChatController extends Controller
 
         return response()->json($result, 200, ['Content-Type' => 'application/json; charset=UTF-8'], JSON_UNESCAPED_UNICODE);
     }
+
+
+    public function checknew(Request $request) {
+        //Получение данных
+        $data = json_decode($request->getContent(), true);
+        $lastid = $data['lastid'];
+        $sendid = $data['sendid'];
+        $uid = Auth::id();
+        while(true) {
+            $messages = messages::getNewMessages($uid, $sendid, $lastid);
+            if (isset($messages[0])) {
+                return response()->json($messages, 200, ['Content-Type' => 'application/json; charset=UTF-8'], JSON_UNESCAPED_UNICODE);
+            }
+            sleep(1);
+        }
+    }
 }
