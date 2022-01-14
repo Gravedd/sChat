@@ -26,6 +26,12 @@ Route::get('/home', function () {
 });
 Route::get('/chat/{userid}', [ChatController::class, 'index']);
 Route::get('/chatapi', [ChatController::class, 'getJson']);
+Route::post('/chatapi/sendmess', [ChatController::class, 'sendMessage']);
+
+
+
+
+
 Route::get('search', [UsersController::class, 'search']);
 Route::get('/user/{userid}', [UsersController::class, 'profile']);
 

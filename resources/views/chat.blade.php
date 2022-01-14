@@ -29,9 +29,11 @@
                 <br>
             </div>
             <div class="messinput">
-                <input type="text" placeholder=" ваше сообщение...">
+                <input type="text" placeholder=" ваше сообщение..." id="messinput">
                 <input id="userid" type="hidden" value="{{$id}}">
-                <input type="submit" value="&#8594;">
+                <input id="sendid" type="hidden" value="{{$sendid}}">
+                <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+                <input type="submit" value="&#8594;" id="sendButton">
             </div>
             <script src="/public/js/chatscript.js"></script>
         </div>
