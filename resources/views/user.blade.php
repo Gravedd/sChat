@@ -4,7 +4,7 @@
         <h1>{{ $user[0]['name'] }}</h1>
         Статус: <span class="online">Онлайн</span><br><br>
         <input type="hidden" value="{{ $user[0]['id'] }}" id="uid">
-        <div class="flexrow">
+        <div class="flexrowbtn">
             <a href="/chat/{{ $user[0]['id'] }}" title="Перейти в диалог с этим пользователем" class="svgbuttona">
                 <div class="button">
                     <svg width="45" height="45" style="fill: #ffffff;">

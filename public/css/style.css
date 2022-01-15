@@ -80,6 +80,10 @@ main {
     display: flex;
     margin-bottom: 8px;
 }
+.flexrowbtn {
+    display: flex;
+    margin-bottom: 8px;
+}
 h1 {
     font-family: LightFont;
     font-size: 24pt;
