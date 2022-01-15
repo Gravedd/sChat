@@ -91,6 +91,12 @@ async function checkNew() {
 //отправка сообщения на сервер
 let tempid = 0;
 sendButton.addEventListener('click', sendMessage);
+messinput.addEventListener('keyup', function (event){
+    let keyboardCode = event.key;
+    if (keyboardCode === "Enter"){
+        sendMessage();
+    }
+});
 
 function getInputtext() {
     return messinput.value;
