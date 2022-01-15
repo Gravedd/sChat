@@ -9,6 +9,7 @@ let token = document.getElementById('csrf-token');
 
 let lastmessid;
 /*ФУКНЦИИ*/
+
 //загрузка всех сообщений
 async function getmessages() {
     let response = await fetch('/chatapi');//запрос в БД
@@ -24,58 +25,63 @@ async function getmessages() {
         }
     }
     block.scrollTop = block.scrollHeight;//проматываем этот блок в конец
-    lastmessid = getIdlastMessage(content);
+    lastmessid = getIdlastMessage(content);//получаем айди посл.сообщения
 }
+
+
 //получение айди последнего сообщения
 function getIdlastMessage(arr) {
     return arr[arr.length - 1]['id'];
 }
+
+
 //запрос к серверу на новые сообщения
 async function checkNew() {
     let toserver = {//что отправляем на сервер
-        lastid: lastmessid,
-        sendid: sendid
+        lastid: lastmessid,//айди посл.сообщения
+        sendid: sendid//кому отправляем
     };
     let response = await fetch('/chatapi/checknew', {
         method: 'POST',
-        credentials: "same-origin",
+        credentials: "same-origin",//с куки
         headers: {
             "Accept": "application/json",
             "X-Requested-With": "XMLHttpRequest",
             "X-CSRF-Token": token.value,
             'Content-Type': 'application/json;charset=utf-8'
         },
-        body: JSON.stringify(toserver)
+        body: JSON.stringify(toserver)//отправка нашего массива
     }, 3000);//запрос к серверу
+
+    //если ошибка, то вывести ошибку в консоль и заново запустить функцию
     if (response.status != 200){
         console.log(response.statusText);
         checkNew();
     }
     let content = await response.json();//получаем ответ в JSON-формате
 
-
-
+    //если пришел ответ от сервера
     if (content.length > 0) {
         let key;
-        //вывод сообщений в окно с сообщениями
-        for (key in content){
-            //определяем, сообщение было отправлено, или полученно, и задаем соответсвующий от этого класс
-            if ( content[key]['user_id'] == uid ) {
-                mesblock.innerHTML += '<div class="usermess sent">' + content[key].message + '</div>';
-                if (document.getElementById(tempid) != null) {
-                    if (document.getElementById(tempid).innerHTML == content[key].message) {
-                        document.getElementById(tempid).remove();
+        //то делаем вывод сообщений в окно
+            for (key in content){
+                //определяем, сообщение было отправлено, или полученно, и задаем соответсвующий от этого класс
+                if ( content[key]['user_id'] == uid ) {
+                    mesblock.innerHTML += '<div class="usermess sent">' + content[key].message + '</div>';
+                    if (document.getElementById(tempid) != null) {
+                        if (document.getElementById(tempid).innerHTML == content[key].message) {
+                            document.getElementById(tempid).remove();
+                        }
                     }
+                } else {
+                    mesblock.innerHTML += '<div class="usermess received">' + content[key].message + '</div>';
                 }
-            } else {
-                mesblock.innerHTML += '<div class="usermess received">' + content[key].message + '</div>';
             }
-        }
         block.scrollTop = block.scrollHeight;//проматываем этот блок в конец
-        lastmessid = getIdlastMessage(content);
-        checkNew();
-    } else {
-        console.log('ничего нового(');
+        lastmessid = getIdlastMessage(content);//получаем айди посл.сообщения
+        checkNew();//заново запускаем функцию
+    } else {//если ответ пришел пустой
+        checkNew();//то заново запустить функцию
     }
 
 }
