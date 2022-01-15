@@ -2,30 +2,11 @@
 @section('content')
     <main>
         <div class="flexrow">
-            <h1>Диалог с пользователем <a href="">Олег</a></h1>
+            <h1>Диалог с пользователем <a href="">{{ $userinf[0]['name'] }}</a></h1>
             <input type="text" maxlength="64" placeholder="ваш ключ шифрования...">
         </div>
         <div class="chatwrapper">
             <div class="messages" id="messblock">
-                {{--<div class="usermess received">сообщение</div>
-                <div class="usermess received">сообщение</div>
-                <div class="usermess received">сообщение</div>
-                <div class="usermess received">сообщение</div>
-                <div class="usermess received">сообщение</div>
-                <div class="usermess received">сообщение</div>
-                <div class="usermess received">сообщение</div>
-                <div class="usermess received">сообщение</div>
-                <div class="usermess sent">сообщение1</div>
-                <div class="usermess received">сообщение</div>
-                <div class="usermess received">сообщение</div>
-                <div class="usermess received">сообщение</div>
-                <div class="usermess received">сообщение</div>
-                <div class="usermess received">сообщение1</div>
-                <div class="usermess received">сообщение1</div>
-                <div class="usermess sent">сообщение1</div>--}}
-                {{--<div class="usermess anim">
-                    Отправка сообщения...
-                </div>--}}
                 <br>
             </div>
             <div class="messinput">

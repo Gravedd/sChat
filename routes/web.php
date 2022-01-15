@@ -25,7 +25,7 @@ Route::get('/home', function () {
     return view('dialogues');
 });
 Route::get('/chat/{userid}', [ChatController::class, 'index']);
-Route::get('/chatapi', [ChatController::class, 'getJson']);
+Route::post('/chatapi', [ChatController::class, 'getJson']);
 Route::post('/chatapi/sendmess', [ChatController::class, 'sendMessage']);
 Route::post('/chatapi/checknew', [ChatController::class, 'checknew']);
 

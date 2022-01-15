@@ -12,7 +12,20 @@ let lastmessid;
 
 //загрузка всех сообщений
 async function getmessages() {
-    let response = await fetch('/chatapi');//запрос в БД
+    let toserver = {//что отправляем на сервер
+        sendid: sendid//кому отправляем
+    };
+    let response = await fetch('/chatapi', {
+        method: 'POST',
+        credentials: "same-origin",//с куки
+        headers: {
+            "Accept": "application/json",
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRF-Token": token.value,
+            'Content-Type': 'application/json;charset=utf-8'
+        },
+        body: JSON.stringify(toserver)//отправка нашего массива
+    });//запрос в БД
     let content = await response.json();//получаем ответ в JSON-формате
         let key;
     //вывод сообщений в окно с сообщениями
@@ -146,7 +159,7 @@ async function sendMessage() {
 
 //ВЫЗОВЫ ФУНКЦИЙ
 getmessages();//получить все сообщения при загрузки страницы
-setTimeout(checkNew, 1.5 * 1000, 4);
+// setTimeout(checkNew, 1.5 * 1000, 4);
 
 
 

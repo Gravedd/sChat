@@ -10,8 +10,8 @@ class messages extends Model
     use HasFactory;
     protected $table = 'messages';//имя таблицы
 
-    public static function getAllMessages($uid, $reveiverid) {
-        return static::WhereRaw("(`user_id` = $uid AND `receiver_id` = $reveiverid) OR (`user_id` = $reveiverid AND `receiver_id` = $uid)")->get();
+    public static function getAllMessages($uid, $receiverid) {
+        return static::WhereRaw("(`user_id` = $uid AND `receiver_id` = $receiverid) OR (`user_id` = $receiverid AND `receiver_id` = $uid)")->get();
     }
     public static function getNewMessages($uid, $receiverid, $lastid) {
         return static::WhereRaw("((`user_id` = $uid AND `receiver_id` = $receiverid AND `id`>$lastid) OR (`user_id` = $receiverid AND `receiver_id` = $uid AND `id`>$lastid))")->get();
