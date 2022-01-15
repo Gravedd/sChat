@@ -36,6 +36,8 @@ function getIdlastMessage(arr) {
 
 
 //запрос к серверу на новые сообщения
+
+
 async function checkNew() {
     let toserver = {//что отправляем на сервер
         lastid: lastmessid,//айди посл.сообщения
@@ -53,10 +55,11 @@ async function checkNew() {
         body: JSON.stringify(toserver)//отправка нашего массива
     }, 3000);//запрос к серверу
 
+
     //если ошибка, то вывести ошибку в консоль и заново запустить функцию
-    if (response.status != 200){
+    if (response.status != 200) {
         console.log(response.statusText);
-        checkNew();
+        await checkNew();
     }
     let content = await response.json();//получаем ответ в JSON-формате
 
@@ -64,24 +67,24 @@ async function checkNew() {
     if (content.length > 0) {
         let key;
         //то делаем вывод сообщений в окно
-            for (key in content){
-                //определяем, сообщение было отправлено, или полученно, и задаем соответсвующий от этого класс
-                if ( content[key]['user_id'] == uid ) {
-                    mesblock.innerHTML += '<div class="usermess sent">' + content[key].message + '</div>';
-                    if (document.getElementById(tempid) != null) {
-                        if (document.getElementById(tempid).innerHTML == content[key].message) {
-                            document.getElementById(tempid).remove();
-                        }
+        for (key in content) {
+            //определяем, сообщение было отправлено, или полученно, и задаем соответсвующий от этого класс
+            if (content[key]['user_id'] == uid) {
+                mesblock.innerHTML += '<div class="usermess sent">' + content[key].message + '</div>';
+                if (document.getElementById(tempid) != null) {
+                    if (document.getElementById(tempid).innerHTML == content[key].message) {
+                        document.getElementById(tempid).remove();
                     }
-                } else {
-                    mesblock.innerHTML += '<div class="usermess received">' + content[key].message + '</div>';
                 }
+            } else {
+                mesblock.innerHTML += '<div class="usermess received">' + content[key].message + '</div>';
             }
+        }
         block.scrollTop = block.scrollHeight;//проматываем этот блок в конец
         lastmessid = getIdlastMessage(content);//получаем айди посл.сообщения
-        checkNew();//заново запускаем функцию
+        await checkNew();//заново запускаем функцию
     } else {//если ответ пришел пустой
-        checkNew();//то заново запустить функцию
+        await checkNew();//то заново запустить функцию
     }
 
 }
