@@ -47,8 +47,14 @@ async function checkNew() {
         },
         body: JSON.stringify(toserver)
     }, 3000);//запрос к серверу
+    if (response.status != 200){
+        console.log(response.statusText);
+        checkNew();
+    }
     let content = await response.json();//получаем ответ в JSON-формате
-    console.log(content);
+
+
+
     if (content.length > 0) {
         let key;
         //вывод сообщений в окно с сообщениями
@@ -56,8 +62,10 @@ async function checkNew() {
             //определяем, сообщение было отправлено, или полученно, и задаем соответсвующий от этого класс
             if ( content[key]['user_id'] == uid ) {
                 mesblock.innerHTML += '<div class="usermess sent">' + content[key].message + '</div>';
-                if (document.getElementById(tempid).innerHTML == content[key].message ) {
-                    document.getElementById(tempid).remove();
+                if (document.getElementById(tempid) != null) {
+                    if (document.getElementById(tempid).innerHTML == content[key].message) {
+                        document.getElementById(tempid).remove();
+                    }
                 }
             } else {
                 mesblock.innerHTML += '<div class="usermess received">' + content[key].message + '</div>';
