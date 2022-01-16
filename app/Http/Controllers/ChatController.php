@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dialogueslist;
 use App\Models\messages;
 use App\Models\Users;
 use Illuminate\Http\Request;
@@ -12,6 +13,9 @@ class ChatController extends Controller
     public function index($userid) {
         $id = Auth::id();
         $sendid = $userid;
+        if ( !Dialogueslist::checkUserinList($sendid) ) {
+            Dialogueslist::addUserinList($sendid);
+        }
         $userinf = Users::getUser($sendid);
         return $this->viewreturn($id, $sendid, $userinf);
     }

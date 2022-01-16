@@ -159,7 +159,7 @@ async function sendMessage() {
 
 //ВЫЗОВЫ ФУНКЦИЙ
 getmessages();//получить все сообщения при загрузки страницы
-// setTimeout(checkNew, 1.5 * 1000, 4);
+setTimeout(checkNew, 1.5 * 1000, 4);
 
 
 

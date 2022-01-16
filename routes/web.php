@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use \App\Http\Controllers\ChatController;
+use \App\Http\Controllers\dialogueslistController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,9 +22,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', function () {
-    return view('dialogues');
-});
+Route::get('/home', [dialogueslistController::class, 'index']);
 Route::get('/chat/{userid}', [ChatController::class, 'index']);
 Route::post('/chatapi', [ChatController::class, 'getJson']);
 Route::post('/chatapi/sendmess', [ChatController::class, 'sendMessage']);

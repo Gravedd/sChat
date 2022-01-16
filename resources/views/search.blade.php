@@ -15,7 +15,7 @@
             @foreach($users as $user)
                 <div class="searchitem">
                     <a href="user/{{ $user['id'] }}" title="перейти в профиль" class="name">{{ $user['name'] }}</a>
-                    <span class="offline">Заходил 5 минут назад</span>
+                    <br>
                 </div>
             @endforeach
             @empty($users[0])

@@ -3,16 +3,12 @@
     <main>
     <h1>Диалоги</h1>
     <div class="searchresults">
-        <div class="searchitem">
-            <a href="" title="перейти в профиль" class="name">Имя фамалия</a>
-            <a href="" title="перейти в профиль" class="nick">@nickname</a>
-            <a href="" title="перейти в профиль" class="offline">Заходил 5 минут назад</a>
-        </div>
-        <div class="searchitem">
-            <a href="" title="перейти в профиль" class="name">Имя фамалия</a>
-            <a href="" title="перейти в профиль" class="nick">@nickname</a>
-            <a href="" title="перейти в профиль" class="online">Онлайн</a>
-        </div>
+        @foreach($dlist as $user)
+            <div class="searchitem">
+                <a href="/user/{{ $user->id }}" title="перейти в профиль" class="name">{{ $user->name }}</a>
+                <a href="/chat/{{ $user->id }}" title="перейти в профиль" class="offline">Перейти в диалог</a>
+            </div>
+        @endforeach
     </div>
     </main>
 @endsection
