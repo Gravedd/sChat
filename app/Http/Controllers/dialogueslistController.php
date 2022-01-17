@@ -13,4 +13,8 @@ class dialogueslistController extends Controller
         $dlist = Dialogueslist::getUserList($uid);
         return view('dialogues', compact('dlist'));
     }
+    public function addUser(Request $request){
+        $result = Dialogueslist::addUserinList($request->userid);
+        return $result;
+    }
 }

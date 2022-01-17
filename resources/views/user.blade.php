@@ -24,5 +24,6 @@
 
 
     </main>
+    <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
     <script src="/public/js/profile.js"></script>
 @endsection

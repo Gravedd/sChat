@@ -39,4 +39,5 @@ class Dialogueslist extends Model
         $userinlist->receiver_id = $receiverid;
         return $userinlist->save();
     }
+
 }

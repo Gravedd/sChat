@@ -23,6 +23,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [dialogueslistController::class, 'index']);
+Route::post('/adduser', [dialogueslistController::class, 'addUser']);
 Route::get('/chat/{userid}', [ChatController::class, 'index']);
 Route::post('/chatapi', [ChatController::class, 'getJson']);
 Route::post('/chatapi/sendmess', [ChatController::class, 'sendMessage']);

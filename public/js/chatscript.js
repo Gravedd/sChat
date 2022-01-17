@@ -28,17 +28,22 @@ async function getmessages() {
     });//запрос в БД
     let content = await response.json();//получаем ответ в JSON-формате
         let key;
-    //вывод сообщений в окно с сообщениями
-    for (key in content){
-        //определяем, сообщение было отправлено, или полученно, и задаем соответсвующий от этого класс
-        if ( content[key]['user_id'] == uid ) {
-            mesblock.innerHTML += '<div class="usermess sent">' + content[key].message + '</div>';
-        } else {
-            mesblock.innerHTML += '<div class="usermess received">' + content[key].message + '</div>';
+    if ( content.length > 1 ) {
+        //вывод сообщений в окно с сообщениями
+        for (key in content) {
+            //определяем, сообщение было отправлено, или полученно, и задаем соответсвующий от этого класс
+            if (content[key]['user_id'] == uid) {
+                mesblock.innerHTML += '<div class="usermess sent">' + content[key].message + '</div>';
+            } else {
+                mesblock.innerHTML += '<div class="usermess received">' + content[key].message + '</div>';
+            }
         }
+        block.scrollTop = block.scrollHeight;//проматываем этот блок в конец
+        lastmessid = getIdlastMessage(content);//получаем айди посл.сообщения
+    } else {
+        lastmessid = 0;
     }
-    block.scrollTop = block.scrollHeight;//проматываем этот блок в конец
-    lastmessid = getIdlastMessage(content);//получаем айди посл.сообщения
+
 }
 
 
