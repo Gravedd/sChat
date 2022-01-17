@@ -9,12 +9,21 @@ use App\Models\Dialogueslist;
 class dialogueslistController extends Controller
 {
     public function index(){
-        $uid = Auth::id();
-        $dlist = Dialogueslist::getUserList($uid);
-        return view('dialogues', compact('dlist'));
+        if (Auth::id() !== null) {
+            $uid = Auth::id();
+            $dlist = Dialogueslist::getUserList($uid);
+            return view('dialogues', compact('dlist'));
+        } else {
+            return redirect('/login');
+        }
+
     }
     public function addUser(Request $request){
-        $result = Dialogueslist::addUserinList($request->userid);
-        return $result;
+        if (Auth::id() !== null) {
+            $result = Dialogueslist::addUserinList($request->userid);
+            return $result;
+        } else {
+            return abort('403');
+        }
     }
 }
