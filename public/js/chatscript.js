@@ -7,6 +7,7 @@ let messinput = document.getElementById('messinput');
 let sendButton = document.getElementById('sendButton');
 let token = document.getElementById('csrf-token');
 
+
 let lastmessid;
 /*ФУКНЦИИ*/
 
@@ -160,6 +161,22 @@ async function sendMessage() {
     }
 
 
+}
+
+//Кодирование/раскодирование сообщения
+function messageencoding(text) {
+    let inp;
+    let key;
+    let output = "";
+    let keyval = document.getElementById('securekey').value;
+    for (i = 0; i < text.length; i++){
+        // берём цифровое значение очередного символа в сообщении и ключе
+        inp = text.charCodeAt(i);
+        key = keyval.charCodeAt(i);
+        // и применяем к ним исключающее или — XOR
+        output += String.fromCharCode(inp ^ key);
+    }
+    return output;
 }
 
 //ВЫЗОВЫ ФУНКЦИЙ

@@ -3,7 +3,7 @@
     <main>
         <div class="flexrow">
             <h1>Диалог с пользователем <a href="">{{ $userinf[0]['name'] }}</a></h1>
-            <input type="text" maxlength="64" placeholder="ваш ключ шифрования...">
+            <input type="text" id="securekey" maxlength="64" placeholder="ваш ключ шифрования...">
         </div>
         <div class="chatwrapper">
             <div class="messages" id="messblock">
