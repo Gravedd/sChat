@@ -6,7 +6,7 @@ let sendid = document.getElementById('sendid').value;
 let messinput = document.getElementById('messinput');
 let sendButton = document.getElementById('sendButton');
 let token = document.getElementById('csrf-token');
-
+let keyinput = document.getElementById('securekey');
 
 let lastmessid;
 /*ФУКНЦИИ*/
@@ -34,9 +34,9 @@ async function getmessages() {
         for (key in content) {
             //определяем, сообщение было отправлено, или полученно, и задаем соответсвующий от этого класс
             if (content[key]['user_id'] == uid) {
-                mesblock.innerHTML += '<div class="usermess sent">' + content[key].message + '</div>';
+                mesblock.innerHTML += '<div class="usermess sent">' + messageencoding(content[key].message) + '</div>';
             } else {
-                mesblock.innerHTML += '<div class="usermess received">' + content[key].message + '</div>';
+                mesblock.innerHTML += '<div class="usermess received">' + messageencoding(content[key].message) + '</div>';
             }
         }
         block.scrollTop = block.scrollHeight;//проматываем этот блок в конец
@@ -89,14 +89,14 @@ async function checkNew() {
         for (key in content) {
             //определяем, сообщение было отправлено, или полученно, и задаем соответсвующий от этого класс
             if (content[key]['user_id'] == uid) {
-                mesblock.innerHTML += '<div class="usermess sent">' + content[key].message + '</div>';
+                mesblock.innerHTML += '<div class="usermess sent">' + messageencoding(content[key].message) + '</div>';
                 if (document.getElementById(tempid) != null) {
-                    if (document.getElementById(tempid).innerHTML == content[key].message) {
+                    if (document.getElementById(tempid).innerHTML == messageencoding(content[key].message)) {
                         document.getElementById(tempid).remove();
                     }
                 }
             } else {
-                mesblock.innerHTML += '<div class="usermess received">' + content[key].message + '</div>';
+                mesblock.innerHTML += '<div class="usermess received">' + messageencoding(content[key].message) + '</div>';
             }
         }
         block.scrollTop = block.scrollHeight;//проматываем этот блок в конец
@@ -127,11 +127,11 @@ async function sendMessage() {
     if ( getInputtext() != '' && getInputtext() != ' ' ) {
         tempid += 1;
         let mess = {
-            message: getInputtext(),
+            message: messageencoding(getInputtext()),
             sendid: sendid
         };
 
-        mesblock.innerHTML += '<div class="usermess sent anim" id="' + tempid + '">' + mess.message + '</div>';
+        mesblock.innerHTML += '<div class="usermess sent anim" id="' + tempid + '">' + getInputtext() + '</div>';
         block.scrollTop = block.scrollHeight;//проматываем этот блок в конец
         messinput.value = '';//очищаем инпут
 
@@ -179,9 +179,67 @@ function messageencoding(text) {
     return output;
 }
 
+//Сохраняет ключ в LocalStorage
+function localstorageaddkey(key){
+    let data = {
+        receiver_id: sendid,
+        key: document.getElementById('securekey').value
+    }
+    let recid = "recid" + sendid;
+    localStorage.setItem(recid, JSON.stringify(data));
+    return alert('Ключ сохранен в вашем браузере'), location.reload();
+}
+function localstorageaddkeyStart(key){
+    let data = {
+        receiver_id: sendid,
+        key: key
+    }
+    let recid = "recid" + sendid;
+    localStorage.setItem(recid, JSON.stringify(data));
+    return alert('Ключ сохранен в вашем браузере');
+}
+
+
+keyinput.addEventListener('dblclick', localstorageaddkey);
+
+function getKeyfromLstorage(recid){
+    recid = "recid" + recid;
+    if ( localStorage.getItem(recid) ) {
+        let savedata = JSON.parse(localStorage.getItem(recid));
+        return savedata.key;
+    } else {
+        alert('В браузере не был сохранен ключ');
+    }
+}
+function checkKeyInLstorage(recid){
+    recid = "recid" + recid;
+    if ( localStorage.getItem(recid) ) {
+        return true;
+    } else {
+        return false;
+    }
+}
+function deletekey(){
+    recid = "recid" + sendid;
+    if ( localStorage.getItem(recid) ) {
+        localStorage.removeItem(recid);
+        location.reload();
+    }
+
+}
+
+
 //ВЫЗОВЫ ФУНКЦИЙ
-getmessages();//получить все сообщения при загрузки страницы
-setTimeout(checkNew, 1.5 * 1000, 4);
+if ( checkKeyInLstorage(sendid)){
+    keyinput.value = getKeyfromLstorage(sendid);
+    getmessages();//получить все сообщения при загрузки страницы
+} else {
+    key = prompt("Ключ с этим пользователем не найден в вашем браузере. Введите новый ключ");
+    localstorageaddkeyStart(key);
+    keyinput.value = getKeyfromLstorage(sendid);
+    getmessages();//получить все сообщения при загрузки страницы
+}
+setTimeout(checkNew, 2 * 1000, 4);
 
 
 

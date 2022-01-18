@@ -97,8 +97,19 @@ h2, h3, h4, h5, h6 {
     margin-right: 16px;
     width: 60%;
 }
-.flexrow input {
+.flexrow .wrapper {
     width: 40%;
+    display: flex;
+    align-items: center;
+}
+.flexrow .wrapper strong {
+    color: var(--cont-color);
+    font-size: 20pt;
+    user-select: none;
+}
+.flexrow .wrapper input {
+    width: 100%;
+    height: 40px;
     border: 2px solid var(--cont-color);
     outline: none;
     border-radius: 5px;

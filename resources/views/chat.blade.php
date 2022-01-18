@@ -3,7 +3,11 @@
     <main>
         <div class="flexrow">
             <h1>Диалог с пользователем <a href="">{{ $userinf[0]['name'] }}</a></h1>
-            <input type="text" id="securekey" maxlength="64" placeholder="ваш ключ шифрования...">
+            <div class="wrapper">
+                <strong title="Сделайте двойной клик, чтобы сохранить ключ в вашем браузере и применить его">?</strong>&nbsp;
+                <strong onclick="deletekey()" title="Нажмите, чтобы удалить сохраненный ключ">X</strong>&nbsp;
+                <input type="text" id="securekey" maxlength="64" placeholder="ваш ключ шифрования...">
+            </div>
         </div>
         <div class="chatwrapper">
             <div class="messages" id="messblock">
