@@ -13,9 +13,11 @@ let lastmessid;
 
 //загрузка всех сообщений
 async function getmessages() {
-    let toserver = {//что отправляем на сервер
+    //что отправляем на сервер
+    let toserver = {
         sendid: sendid//кому отправляем
     };
+    //Запрос на сервер
     let response = await fetch('/chatapi', {
         method: 'POST',
         credentials: "same-origin",//с куки
@@ -26,9 +28,11 @@ async function getmessages() {
             'Content-Type': 'application/json;charset=utf-8'
         },
         body: JSON.stringify(toserver)//отправка нашего массива
-    });//запрос в БД
-    let content = await response.json();//получаем ответ в JSON-формате
+    });
+    //получаем ответ в JSON-формате
+    let content = await response.json();
         let key;
+    //Если ответ пришел не пустой
     if ( content.length > 1 ) {
         //вывод сообщений в окно с сообщениями
         for (key in content) {
@@ -55,13 +59,13 @@ function getIdlastMessage(arr) {
 
 
 //запрос к серверу на новые сообщения
-
-
 async function checkNew() {
-    let toserver = {//что отправляем на сервер
+    //что отправляем на сервер
+    let toserver = {
         lastid: lastmessid,//айди посл.сообщения
         sendid: sendid//кому отправляем
     };
+    //Запрос на сервер
     let response = await fetch('/chatapi/checknew', {
         method: 'POST',
         credentials: "same-origin",//с куки
@@ -73,15 +77,13 @@ async function checkNew() {
         },
         body: JSON.stringify(toserver)//отправка нашего массива
     }, 3000);//запрос к серверу
-
-
-    //если ошибка, то вывести ошибку в консоль и заново запустить функцию
+    //если ошибка, то заново запустить функцию
     if (response.status != 200) {
-        console.log(response.statusText);
         await checkNew();
     }
-    let content = await response.json();//получаем ответ в JSON-формате
 
+    //получаем ответ в JSON-формате
+    let content = await response.json();
     //если пришел ответ от сервера
     if (content.length > 0) {
         let key;
@@ -110,35 +112,41 @@ async function checkNew() {
 
 
 
-//отправка сообщения на сервер
+//ОТПРАВКА СООБЩЕНИЯ НА СЕРВЕР
 let tempid = 0;
+//Добавляем эвенты, запускающие функции, при нажатии на Enter и кнопки отправки
 sendButton.addEventListener('click', sendMessage);
 messinput.addEventListener('keyup', function (event){
-    let keyboardCode = event.key;
+    let keyboardCode = event.key;//получить нажатую клавишу
     if (keyboardCode === "Enter"){
         sendMessage();
     }
 });
-
+//Получить текст с инпута
 function getInputtext() {
     return messinput.value;
 }
+
+//Функция отправки сообщения
 async function sendMessage() {
+    //Если сообщение не равно пустате или пробелу
     if ( getInputtext() != '' && getInputtext() != ' ' ) {
         tempid += 1;
+        //Что отправляем на сервер
         let mess = {
             message: messageencoding(getInputtext()),
             sendid: sendid
         };
 
+        //Вывод временного сообщения, с анимацией отправки
         mesblock.innerHTML += '<div class="usermess sent anim" id="' + tempid + '">' + getInputtext() + '</div>';
         block.scrollTop = block.scrollHeight;//проматываем этот блок в конец
         messinput.value = '';//очищаем инпут
 
+        //Отправка данных на сервер
         let response = await fetch('/chatapi/sendmess', {
             method: 'POST',
             credentials: "same-origin",
-
             headers: {
                 "Accept": "application/json",
                 "X-Requested-With": "XMLHttpRequest",
@@ -146,13 +154,11 @@ async function sendMessage() {
                 'Content-Type': 'application/json;charset=utf-8'
             },
             body: JSON.stringify(mess)
-        });//запрос к серверу
-
-        let content = await response.json();//получаем ответ в JSON-формате
-
+        });
+        //получаем ответ в JSON-формате
+        let content = await response.json();
         //если ответ = true, то сообщение успешно отпр-но, иначе ошибка
         if (content['response'] == true) {
-            console.log('Сообщение успешно отправлено')
             document.getElementById(tempid).classList.remove("anim");
         } else {
             alert('ошибка при отправке: ' + (content['response']));
@@ -163,12 +169,12 @@ async function sendMessage() {
 
 }
 
-//Кодирование/раскодирование сообщения
-function messageencoding(text) {
+//КОДИРОВАНИЕ/РАССКОДИРОВАНИЕ СООБЩЕНИЯ
+function messageencoding(text) {//функция принимает в себя текст
     let inp;
     let key;
     let output = "";
-    let keyval = document.getElementById('securekey').value;
+    let keyval = document.getElementById('securekey').value;//получаем значение ключа
     for (i = 0; i < text.length; i++){
         // берём цифровое значение очередного символа в сообщении и ключе
         inp = text.charCodeAt(i);
@@ -176,10 +182,15 @@ function messageencoding(text) {
         // и применяем к ним исключающее или — XOR
         output += String.fromCharCode(inp ^ key);
     }
-    return output;
+    return output;//возращаем закодированное/раскодированное сообщение
 }
 
-//Сохраняет ключ в LocalStorage
+//LOCAL STORAGE
+
+//Двойное нажатие на инпут ключа вызывает функцию сохранения ключа
+keyinput.addEventListener('dblclick', localstorageaddkey);
+
+//Сохранить ключ
 function localstorageaddkey(key){
     let data = {
         receiver_id: sendid,
@@ -189,6 +200,7 @@ function localstorageaddkey(key){
     localStorage.setItem(recid, JSON.stringify(data));
     return alert('Ключ сохранен в вашем браузере'), location.reload();
 }
+//Сохранить ключ(введенный из prompt)
 function localstorageaddkeyStart(key){
     let data = {
         receiver_id: sendid,
@@ -199,9 +211,7 @@ function localstorageaddkeyStart(key){
     return alert('Ключ сохранен в вашем браузере');
 }
 
-
-keyinput.addEventListener('dblclick', localstorageaddkey);
-
+//Получить ключ
 function getKeyfromLstorage(recid){
     recid = "recid" + recid;
     if ( localStorage.getItem(recid) ) {
@@ -211,6 +221,7 @@ function getKeyfromLstorage(recid){
         alert('В браузере не был сохранен ключ');
     }
 }
+//Проверить наличие ключа
 function checkKeyInLstorage(recid){
     recid = "recid" + recid;
     if ( localStorage.getItem(recid) ) {
@@ -219,6 +230,7 @@ function checkKeyInLstorage(recid){
         return false;
     }
 }
+//Удалить ключ
 function deletekey(){
     recid = "recid" + sendid;
     if ( localStorage.getItem(recid) ) {
@@ -228,17 +240,19 @@ function deletekey(){
 
 }
 
-
 //ВЫЗОВЫ ФУНКЦИЙ
+//Если ключ есть, то вписать его в поле ключа, и загрузить сообщения
 if ( checkKeyInLstorage(sendid)){
     keyinput.value = getKeyfromLstorage(sendid);
     getmessages();//получить все сообщения при загрузки страницы
-} else {
+} else //Иначе, выполнить ввод ключа
+{
     key = prompt("Ключ с этим пользователем не найден в вашем браузере. Введите новый ключ");
     localstorageaddkeyStart(key);
     keyinput.value = getKeyfromLstorage(sendid);
     getmessages();//получить все сообщения при загрузки страницы
 }
+//Запуск функции проверки новых сообщений
 setTimeout(checkNew, 2 * 1000, 4);
 
 

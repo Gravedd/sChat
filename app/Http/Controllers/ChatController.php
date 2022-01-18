@@ -10,24 +10,35 @@ use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
+    /*Чат с пользователем
+     * Входные данные: айди пользователя
+     */
     public function index($userid) {
         if (Auth::id() !== null) {
             $id = Auth::id();
             $sendid = $userid;
+            //Проверка, есть ли этот человек, в списке, если нет, то добавить
             if (!Dialogueslist::checkUserinList($sendid)) {
                 Dialogueslist::addUserinList($sendid);
             }
-            $userinf = Users::getUser($sendid);
+            $userinf = Users::getUser($sendid);//Получаем инф.о пользователе
             return $this->viewreturn($id, $sendid, $userinf);
         } else {
             return redirect('/login');
         }
     }
 
+    /*Возращает view-контроллер чата
+     * входные данные: айди пользователя, айди получателя, информация о получателе
+     */
     public function viewreturn($id, $sendid, $userinf) {
         return view('chat', compact('id', 'sendid', 'userinf'));
     }
 
+    /*Получить все сообщения
+     * post-запрос от клиента
+     * Возращает список всех сообщений между двумя пользователями
+     */
     public function getJson(Request $request) {
         if (Auth::id() !== null) {
             //Получение сообщения
@@ -41,7 +52,10 @@ class ChatController extends Controller
         }
     }
 
-
+    /*Сохранить отправленное пользователем сообщение
+     * post-запрос от клиента
+     * Сохраняет в БД сообщение пользователя
+     */
     public function sendMessage(Request $request) {
         if (Auth::id() !== null) {
             //Получение сообщения
@@ -60,7 +74,10 @@ class ChatController extends Controller
         }
     }
 
-
+    /*Функция проверки новых сообщений
+     * Long-polling
+     * post-запрос от клиента
+     */
     public function checknew(Request $request) {
         if (Auth::id() !== null) {
             //Получение данных

@@ -8,6 +8,9 @@ use App\Models\Dialogueslist;
 
 class dialogueslistController extends Controller
 {
+    /*Вывод списка диалогов у пользователя
+     *
+     */
     public function index(){
         if (Auth::id() !== null) {
             $uid = Auth::id();
@@ -18,6 +21,9 @@ class dialogueslistController extends Controller
         }
 
     }
+    /*Добавляет пользователя в список диалогов
+     * post-запрос от клиента
+     */
     public function addUser(Request $request){
         if (Auth::id() !== null) {
             $result = Dialogueslist::addUserinList($request->userid);
