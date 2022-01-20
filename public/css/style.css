@@ -278,10 +278,12 @@ h2, h3, h4, h5, h6 {
     transform: scale(1.01);
 }
 .is-invalid {
-    border: 2px solid #ff5656;
+    box-shadow: 0 0 10px 0 #ff5656;
 }
 .error {
     background-color: #f64a35;
 }
-
+.ok {
+    box-shadow: 0 0 5px 0 #8efc3e;
+}
 

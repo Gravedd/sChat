@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 use \App\Http\Controllers\ChatController;
 use \App\Http\Controllers\dialogueslistController;
+use \App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +23,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::post('/checkname', [RegisterController::class, 'checkNameinDB']);
 Route::get('/home', [dialogueslistController::class, 'index']);
 Route::post('/adduser', [dialogueslistController::class, 'addUser']);
 Route::get('/chat/{userid}', [ChatController::class, 'index']);

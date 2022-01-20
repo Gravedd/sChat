@@ -4,7 +4,8 @@
     <main>
         <form id="loginform" method="POST" action="{{ route('register') }}">
             @csrf
-            <label>Ваше имя</label>
+            <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
+            <label>Ваше Никнейм</label>
             <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
             <label>Ваш email</label>
             <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
@@ -32,4 +33,5 @@
 
         </form>
     </main>
+    <script src="/public/js/register.js"></script>
 @endsection

@@ -41,4 +41,7 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    public static function checkusedname($name) {
+        return User::Select('name')->Where('name', $name)->get();
+    }
 }
