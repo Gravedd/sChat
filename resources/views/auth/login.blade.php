@@ -5,9 +5,9 @@
         <form id="loginform" method="POST" action="{{ route('login') }}">
             @csrf
             <label>Ваш email</label>
-            <input id="email" type="email" class="@error('email')is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+            <input id="email" type="email" class="@error('email')is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus placeholder=" ваш email">
             <label>Ваш пароль</label>
-            <input id="password" type="password" name="password" required autocomplete="current-password">
+            <input id="password" type="password" name="password" required autocomplete="current-password" placeholder=" ********">
             @error('email')
             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

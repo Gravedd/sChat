@@ -6,13 +6,13 @@
             @csrf
             <input type="hidden" name="_token" id="csrf-token" value="{{ Session::token() }}" />
             <label>Ваше Никнейм</label>
-            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
+            <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus minlength="6" maxlength="32" placeholder=" должен быть уникальным и не менее 6 символов">
             <label>Ваш email</label>
-            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
+            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder=" ваш email">
             <label>Пароль</label>
-            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
+            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password" placeholder=" минимум 8 символов" minlength="8">
             <label>Подтверждение пароля</label>
-            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
+            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder=" должен совпадать с полем выше">
             <label>Уже зарегистрированы?</label> <a href="login">Нажмите чтобы войти</a>
             <input type="submit" class="btn btn-primary" value="Зарегистрироватся">
             @error('password')
