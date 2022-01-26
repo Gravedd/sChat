@@ -32,4 +32,18 @@ class dialogueslistController extends Controller
             return abort('403');
         }
     }
+
+    /*Добавляет пользователя в список диалогов
+     * post-запрос от клиента
+     */
+    public function deleteuser(Request $request){
+        if (Auth::id() !== null) {
+            $request = json_decode($request->getContent(), true);
+            $result = dialogueslist::deleteuserinlist(Auth::id(), $request['userid']);
+            return $result;
+        } else {
+            return abort('403');
+        }
+    }
+
 }

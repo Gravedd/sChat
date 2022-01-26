@@ -26,10 +26,12 @@ Auth::routes();
 Route::post('/checkname', [RegisterController::class, 'checkNameinDB']);
 Route::get('/home', [dialogueslistController::class, 'index']);
 Route::post('/adduser', [dialogueslistController::class, 'addUser']);
+Route::post('/dialogues/delete', [dialogueslistController::class, 'deleteuser']);
 Route::get('/chat/{userid}', [ChatController::class, 'index']);
 Route::post('/chatapi', [ChatController::class, 'getJson']);
 Route::post('/chatapi/sendmess', [ChatController::class, 'sendMessage']);
 Route::post('/chatapi/checknew', [ChatController::class, 'checknew']);
+
 
 
 

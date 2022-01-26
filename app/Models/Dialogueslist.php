@@ -58,5 +58,9 @@ class Dialogueslist extends Model
         $userinlist->receiver_id = $uid;
         return $userinlist->save();
     }
+    public static function deleteuserinlist($uid, $receiverid){
+        $deleted = Dialogueslist::where('user_id', $uid)->where('receiver_id', $receiverid)->delete();
+        return $deleted;
+    }
 
 }
