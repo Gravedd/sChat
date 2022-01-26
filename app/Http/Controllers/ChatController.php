@@ -21,6 +21,10 @@ class ChatController extends Controller
             if (!Dialogueslist::checkUserinList($sendid)) {
                 Dialogueslist::addUserinList($sendid);
             }
+            //Проверка, есть ли этот человек у получателя в списке, если нет, то добавить
+            if (!Dialogueslist::checkUserinListReciever($sendid)) {
+                Dialogueslist::addUserinListReciever($sendid);
+            }
             $userinf = Users::getUser($sendid);//Получаем инф.о пользователе
             return $this->viewreturn($id, $sendid, $userinf);
         } else {

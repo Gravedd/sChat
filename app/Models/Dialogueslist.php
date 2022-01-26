@@ -32,11 +32,30 @@ class Dialogueslist extends Model
             return false;
         }
     }
+    public static function checkUserinListReciever($recieverid){
+        $uid = Auth::id();
+        $result = Dialogueslist::Where('user_id', $recieverid)
+            ->Where('receiver_id', $uid)->get();
+        if (isset($result[0])) {
+            //результат найден
+            return true;
+        } else {
+            //результат не найден
+            return false;
+        }
+    }
     public static function addUserinList($receiverid) {
         $uid = Auth::id();
         $userinlist = new Dialogueslist;
         $userinlist->user_id = $uid;
         $userinlist->receiver_id = $receiverid;
+        return $userinlist->save();
+    }
+    public static function addUserinListReciever($receiverid) {
+        $uid = Auth::id();
+        $userinlist = new Dialogueslist;
+        $userinlist->user_id = $receiverid;
+        $userinlist->receiver_id = $uid;
         return $userinlist->save();
     }
 
