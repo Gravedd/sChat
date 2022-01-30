@@ -20,5 +20,10 @@ async function adduser() {
     }); // завершается с заголовками ответа
     let result = await response.text(); // читать тело ответа в формате JSON
     console.log(result)
+    if ( result == 1) {
+        alert('пользователь добавлен');
+    } else {
+        alert('ошибка. Пользователь уже у вас в списке');
+    }
 }
 adduserbutton.addEventListener('click', adduser);

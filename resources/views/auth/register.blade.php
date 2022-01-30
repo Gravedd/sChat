@@ -14,7 +14,7 @@
             <label>Подтверждение пароля</label>
             <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password" placeholder=" должен совпадать с полем выше">
             <label>Уже зарегистрированы?</label> <a href="login">Нажмите чтобы войти</a>
-            <input type="submit" class="btn btn-primary" value="Зарегистрироватся">
+            <input type="submit" id="submitbtn" class="btn btn-primary" value="Зарегистрироватся">
             @error('password')
             <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -33,5 +33,4 @@
 
         </form>
     </main>
-    <script src="/public/js/register.js"></script>
 @endsection

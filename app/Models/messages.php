@@ -13,6 +13,9 @@ class messages extends Model
     public static function getAllMessages($uid, $receiverid) {
         return static::WhereRaw("(`user_id` = $uid AND `receiver_id` = $receiverid) OR (`user_id` = $receiverid AND `receiver_id` = $uid)")->get();
     }
+    public static function getCountAllMessages($uid, $receiverid) {
+        return static::WhereRaw("(`user_id` = $uid AND `receiver_id` = $receiverid) OR (`user_id` = $receiverid AND `receiver_id` = $uid)")->count();
+    }
     public static function getNewMessages($uid, $receiverid, $lastid) {
         return static::WhereRaw("((`user_id` = $uid AND `receiver_id` = $receiverid AND `id`>$lastid) OR (`user_id` = $receiverid AND `receiver_id` = $uid AND `id`>$lastid))")->get();
     }

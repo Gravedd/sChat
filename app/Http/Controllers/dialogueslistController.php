@@ -26,8 +26,12 @@ class dialogueslistController extends Controller
      */
     public function addUser(Request $request){
         if (Auth::id() !== null) {
-            $result = Dialogueslist::addUserinList($request->userid);
-            return $result;
+            if (!Dialogueslist::checkUserinList($request->userid)) {
+                $result = Dialogueslist::addUserinList($request->userid);
+                return $result;
+            } else {
+                return 0;
+            }
         } else {
             return abort('403');
         }

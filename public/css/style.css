@@ -289,4 +289,11 @@ h2, h3, h4, h5, h6 {
 .contcolor {
     color: var(--cont-color);
 }
+#deleteuserbutton {
+    cursor: pointer;
+    transition: 0.25s;
+}
+#deleteuserbutton:hover {
+    font-size: 16pt;
+}
 

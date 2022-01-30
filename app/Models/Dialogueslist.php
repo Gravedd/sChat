@@ -46,17 +46,27 @@ class Dialogueslist extends Model
     }
     public static function addUserinList($receiverid) {
         $uid = Auth::id();
-        $userinlist = new Dialogueslist;
-        $userinlist->user_id = $uid;
-        $userinlist->receiver_id = $receiverid;
-        return $userinlist->save();
+        if ($uid != $receiverid) {
+            $userinlist = new Dialogueslist;
+            $userinlist->user_id = $uid;
+            $userinlist->receiver_id = $receiverid;
+            return $userinlist->save();
+        }
+        else {
+            return 0;
+        }
     }
     public static function addUserinListReciever($receiverid) {
         $uid = Auth::id();
-        $userinlist = new Dialogueslist;
-        $userinlist->user_id = $receiverid;
-        $userinlist->receiver_id = $uid;
-        return $userinlist->save();
+        if ($uid != $receiverid) {
+            $userinlist = new Dialogueslist;
+            $userinlist->user_id = $receiverid;
+            $userinlist->receiver_id = $uid;
+            return $userinlist->save();
+        }
+        else {
+            return 0;
+        }
     }
     public static function deleteuserinlist($uid, $receiverid){
         $deleted = Dialogueslist::where('user_id', $uid)->where('receiver_id', $receiverid)->delete();

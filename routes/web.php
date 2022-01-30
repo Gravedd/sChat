@@ -23,7 +23,7 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::post('/checkname', [RegisterController::class, 'checkNameinDB']);
+
 Route::get('/home', [dialogueslistController::class, 'index']);
 Route::post('/adduser', [dialogueslistController::class, 'addUser']);
 Route::post('/dialogues/delete', [dialogueslistController::class, 'deleteuser']);

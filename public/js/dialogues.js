@@ -1,9 +1,12 @@
 let token = document.getElementById('csrf-token');
-let deletebutton = document.getElementById('deleteuserbutton');
-
-if ( deletebutton != null) {
-    deletebutton.addEventListener('click', deleteuser);
+let deletebuttons = document.querySelectorAll('#deleteuserbutton');
+console.log(deletebuttons)
+if ( deletebuttons != null) {
+    for (deletebutton of deletebuttons) {
+        deletebutton.addEventListener('click', deleteuser);
+    }
 }
+
 async function deleteuser() {
     //что отправляем на сервер
     let toserver = {
@@ -25,11 +28,16 @@ async function deleteuser() {
     //получаем ответ в JSON-формате
     let content = await response.json();
     if ( content == 1) {
+        deleteinhtml(deletebutton.title);
         alert('пользователь удален из вашего списка');
     } else {
+        console.log(content);
         alert('ошибка');
     }
 }
-function deleteinhtml(){
-
+function deleteinhtml(uid){
+    let elemid = 'user' + uid;
+    let userblock = document.getElementById(elemid);
+    userblock.remove();
+    return true;
 }
