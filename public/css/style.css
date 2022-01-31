@@ -35,6 +35,7 @@ header .logo {
     text-align: center;
     transition: 0.5s;
     text-shadow: 0 2px 5px var(--shadow-color);
+    font-weight: bold;
 }
 header .nav {
     height: 100px;

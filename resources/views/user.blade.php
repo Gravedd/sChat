@@ -12,7 +12,7 @@
                     </svg>
                 </div>
             </a>
-            <a title="добавить пользователя в список" id="adduserbutton">
+            <a title="добавить пользователя в список" id="adduserbutton" href="#">
                 <div class="button">
                     <svg width="45" height="45">
                         <image xlink:href="/public/icons/add.svg" src="icons/add.svg" width="45" height="45"/>

@@ -1,6 +1,6 @@
 <header>
     <div class="logo">
-        <a href="/">sChat</a>
+        <a href="/">sCHAT</a>
     </div>
     <div class="nav">
         <a href="/home"><div class="button">Диалоги</div></a>
