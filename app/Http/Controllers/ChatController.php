@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ChatController extends Controller
 {
-    /*Чат с пользователем
+    /* Страница чата с пользователем
      * Входные данные: айди пользователя
      */
     public function index($userid) {
